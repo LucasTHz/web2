@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Enums\UserRolesEnum;
 use App\Models\UserModel;
 use App\Validation\StoreUserValidation;
 
@@ -27,7 +28,7 @@ class ClientController extends BaseController
 
         (new UserModel())->insert([
             ...$data,
-            'role_id'  => 2,
+            'role_id'  => UserRolesEnum::CLIENT->value,
             "password" => \password_hash($data['password'], PASSWORD_DEFAULT),
         ]);
 
