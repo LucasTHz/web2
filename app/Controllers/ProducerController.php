@@ -2,11 +2,8 @@
 
 namespace App\Controllers;
 
-use App\Controllers\BaseController;
 use App\Models\UserModel;
 use App\Validation\StoreUserValidation;
-use CodeIgniter\HTTP\ResponseInterface;
-use Config\Validation;
 
 class ProducerController extends BaseController
 {
@@ -30,9 +27,10 @@ class ProducerController extends BaseController
 
         (new UserModel())->insert([
             ...$data,
-            'role_id' => 3,
+            'role_id'  => 3,
             "password" => \password_hash($data['password'], PASSWORD_DEFAULT),
         ]);
+
         return \redirect()->to('/login');
     }
 }

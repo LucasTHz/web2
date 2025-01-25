@@ -2,7 +2,6 @@
 
 namespace App\Validation;
 
-use CodeIgniter\HTTP\Exceptions\BadRequestException;
 use DateTime;
 
 class CustomRules
@@ -18,7 +17,7 @@ class CustomRules
 
     public function dateFuture(string $date): bool
     {
-        $now = new DateTime();
+        $now       = new DateTime();
         $inputDate = new DateTime($date);
 
         return $inputDate <= $now;
@@ -28,9 +27,9 @@ class CustomRules
 
     public function strongPassword(string $password): bool
     {
-        $uppercase = preg_match('/[A-Z]/', $password);
-        $lowercase = preg_match('/[a-z]/', $password);
-        $number = preg_match('/[0-9]/', $password);
+        $uppercase    = preg_match('/[A-Z]/', $password);
+        $lowercase    = preg_match('/[a-z]/', $password);
+        $number       = preg_match('/[0-9]/', $password);
         $specialChars = preg_match('/[^\w]/', $password);
 
         return $uppercase && $lowercase && $number && $specialChars;
