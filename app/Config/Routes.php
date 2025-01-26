@@ -7,10 +7,12 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::index');
 $routes->get('/login', 'AuthController::login');
+$routes->get('/logout', 'AuthController::logout');
 $routes->post('/auth/login', 'AuthController::auth');
+$routes->get('/unauthorized', 'AuthController::unauthorized');
 
 $routes->group('user', function ($routes) {
-    $routes->group('producer', function ($routes) {
+    $routes->group('producer', ['filter' => 'gamesproducer'], function ($routes) {
         $routes->get('create', 'ProducerController::create');
         $routes->post('store', 'ProducerController::store');
 

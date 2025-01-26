@@ -37,4 +37,16 @@ class AuthController extends BaseController
 
         return view('dashboard', ['games' => $games]);
     }
+
+    public function logout()
+    {
+        session()->destroy();
+
+        return redirect()->to('/login');
+    }
+
+    public function unauthorized()
+    {
+        return view('unauthorized');
+    }
 }
