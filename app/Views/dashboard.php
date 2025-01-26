@@ -22,6 +22,7 @@
   </style>
 </head>
 <body>
+  <?= view('layout/navbar') ?>
   <h1>Dashboard</h1>
 
   <div class="grid-container">
