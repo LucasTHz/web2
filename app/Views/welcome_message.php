@@ -32,17 +32,8 @@
         <h2><?= esc($game['title']) ?></h2>
         <p><?= esc($game['description']) ?></p>
         <p>Preço: <?= esc($game['price']) ?></p>
-        <?php if (session('role_id') == '3'): ?>
-          <button onclick="location.href='/games/edit/<?= $game['id'] ?>'">Editar</button>
-        <?php else: ?>
-          <button>Comprar</button>
-        <?php endif ?>
       </div>
     <?php endforeach ?>
   </div>
-
-  <?php if (session('role_id') == '3'): ?>
-    <button onclick="location.href='/user/producer/game/create'">Adicionar Jogo</button>
-  <?php endif ?>
 </body>
 </html>

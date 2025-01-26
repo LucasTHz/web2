@@ -19,6 +19,9 @@ $routes->group('user', function ($routes) {
         $routes->group('game', function ($routes) {
             $routes->get('create', 'GameController::create');
             $routes->post('store', 'GameController::store');
+            $routes->get('edit/(:num)', 'GameController::edit/$1');
+            $routes->post('update/(:num)', 'GameController::update/$1');
+            $routes->get('delete/(:num)', 'GameController::delete/$1');
         });
     });
 
