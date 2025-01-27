@@ -26,7 +26,7 @@ class GamesProducerFilter implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        if (session('role_id') != UserRolesEnum::ADMIN->value) {
+        if (session('role_id') != UserRolesEnum::PRODUCER->value) {
             return redirect()->to('/unauthorized');
         }
     }

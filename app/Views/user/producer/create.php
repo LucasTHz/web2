@@ -31,7 +31,7 @@
   <label for="password">Senha:</label>
   <input type="password" id="password" name="password" required><br><br>
 
-  <label for="confirme-password">Senha:</label>
+  <label for="confirme-password">Confirme a senha:</label>
   <input type="password" id="confirme-password" name="confirme-password" required><br><br>
 
   <label for="date">Data de Nascimento:</label>

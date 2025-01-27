@@ -19,15 +19,22 @@ class GameController extends BaseController
     public function store()
     {
         $data = $this->request->getPost();
+        $img = $this->request->getFile('img');
 
         $validated = $this->validate([
             'title'       => 'required',
             'description' => 'required',
             'price'       => 'required|numeric',
+            'img'         => 'uploaded[img]|is_image[img]|max_size[img,2048]',
         ]);
 
         if (!$validated) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
+        if ($img->isValid() && !$img->hasMoved()) {
+            $img->move(WRITEPATH . 'uploads');
+            $data['path_img'] = $img->getName();
         }
 
         (new GameModel())->insert([
@@ -48,15 +55,22 @@ class GameController extends BaseController
     public function update(string $idGame)
     {
         $data = $this->request->getPost();
+        $img = $this->request->getFile('img');
 
         $validated = $this->validate([
             'title'       => 'required',
             'description' => 'required',
             'price'       => 'required|numeric',
+            'img'         => 'is_image[img]|max_size[img,2048]',
         ]);
 
         if (!$validated) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
+        if ($img->isValid() && !$img->hasMoved()) {
+            $img->move(WRITEPATH . 'uploads');
+            $data['img'] = $img->getName();
         }
 
         $gameModel = new GameModel();

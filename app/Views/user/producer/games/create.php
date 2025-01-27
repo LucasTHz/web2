@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<form action="./store" method="post">
+  <?= view('layout/navbar') ?>
 
   <?= csrf_field() ?>
 
@@ -28,6 +28,7 @@
       <p style="color: green;"><?= session('success') ?></p>
     </div>
   <?php endif ?>
+  <form action="./store" method="post" enctype="multipart/form-data">
 
   <label for="title">Título:</label>
   <input type="text" id="title" name="title" required><br><br>
@@ -37,6 +38,9 @@
 
   <label for="price">Preço:</label>
   <input type="number" id="price" name="price" min="0" step="0.01" required><br><br>
+
+  <label for="img">Imagem do jogo</label>
+  <input type="file" id="img" name="img"><br><br>
 
   <input type="submit" value="Cadastrar">
 
