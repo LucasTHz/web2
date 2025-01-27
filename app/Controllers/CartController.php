@@ -52,11 +52,20 @@ class CartController extends BaseController
                     'title'    => $item['title'],
                     'quantity' => $item['quantity'],
                     'price'    => $item['price'],
+                    'total'    => number_format($item['price'] * $item['quantity'], 2, '.', ''),
                 ];
+                $total += $item['price'] * $item['quantity'];
             }
         }
 
 
-        return view('cart/show', ['cart' => $games, 'total' => $total]);
+        return view('cart/show', ['cart' => $games, 'total' => number_format($total, 2, '.', '')]);
+    }
+
+    public function remove(string $id)
+    {
+        (new CartModel())->delete($id);
+
+        return redirect()->back()->with('success', ['Jogo removido do carrinho']);
     }
 }

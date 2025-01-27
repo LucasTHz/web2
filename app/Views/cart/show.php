@@ -8,7 +8,7 @@
 <body>
   <?= view('layout/navbar') ?>
   <h1>Meu carrinho</h1>
-  <table>
+  <table class="table">
     <thead>
       <tr>
         <th>Produto</th>
@@ -24,8 +24,9 @@
           <td><?= esc($item['title']) ?></td>
           <td>R$ <?= esc($item['price']) ?></td>
           <td><?= esc($item['quantity']) ?></td>
+          <td>R$ <?= esc($item['total']) ?></td>
           <td>
-            <form action="/cart/remove/<?= $item['id'] ?>" method="post">
+            <form action="/cart/remove/<?= $item['id'] ?>" method="get">
               <button type="submit">Remover</button>
             </form>
           </td>
