@@ -32,17 +32,27 @@
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Steam verde</a>
     <div style="display: flex;">
-        <a class="nav-link active" aria-current="page" href="/">Home</a>
-        <a class="nav-link" href="/user/client/create">Cadastro Cliente</a>
-        <a class="nav-link" href="/user/producer/create">Perfil</a>
-        <?php if (session('id_user')) : ?>
+      // Nome do usuário logado
+      <p style="color: white; margin-right: 10px;"><?= session('name') ?></p>
+
+        <?php if (session('role_id') == '2'): ?>
+          <a class="nav-link" href="/user/client/edit/<?= session('id_user') ?>">Perfil</a>
+          <a class="nav-link" href="/cart">Carrinho</a>
+        <?php endif ?>
+        <?php if (session('role_id') == '1'): ?>
           <a class="nav-link" href="/user/producer/create">Cadastro Produtor</a>
+        <?php endif ?>
+        <?php if (session('id_user')) : ?>
+        <a class="nav-link active" aria-current="page" href="/dashboard">Home</a>
             <a class="nav-link" href="/logout">Sair</a>
         <?php else: ?>
+        <a class="nav-link active" aria-current="page" href="/">Home</a>
         <a class="nav-link" href="/login">Login</a>
+        <a class="nav-link" href="/user/client/create">Cadastro Cliente</a>
         <?php endif ?>
 
         <?php if (session('role_id') == '3'): ?>
+        <a class="nav-link" href="/user/producer/edit">Perfil</a>
             <a class="nav-link" href="/user/producer/game/create">Cadastro de jogo</a>
             <a class="nav-link" href="/user/producer/game/create">Jogos</a>
         <?php endif ?>

@@ -27,6 +27,17 @@
   <h1>Tela incial</h1>
 
   <div class="grid-container">
+
+  <?php if (session()->has('success')): ?>
+    <div>
+    <?php foreach (session('success') as $succes): ?>
+            <li style="color: green;"><?= esc($succes) ?></li>
+          <?php endforeach ?>
+    </div>
+
+  <?php endif ?>
+
+  <?php if (!empty($games)): ?>
     <?php foreach ($games as $game): ?>
       <div class="card">
         <h2><?= esc($game['title']) ?></h2>
@@ -36,13 +47,33 @@
           <button  type="button" class="btn btn-primary" onclick="location.href='/user/producer/game/edit/<?= $game['id'] ?>'">Editar</button>
           <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" >Deletar</button>
         <?php else: ?>
-          <button>Comprar</button>
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#buyModal<?= $game['id'] ?>">Adicionar ao carrinho</button>
+
+        <form action="/cart/add/<?= $game['id'] ?>" method="post">
+          <div class="modal fade" id="buyModal<?= $game['id'] ?>" tabindex="-1" aria-labelledby="buyModalLabel<?= $game['id'] ?>" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="buyModalLabel<?= $game['id'] ?>">Comprar <?= esc($game['title']) ?></h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form action="/buy/<?= $game['id'] ?>" method="post">
+                    <div class="mb-3">
+                      <label for="quantity<?= $game['id'] ?>" class="form-label">Quantidade</label>
+                      <input type="number" class="form-control" id="quantity<?= $game['id'] ?>" name="quantity" min="1" value="1" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Adicionar ao carrinho</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
         <?php endif ?>
       </div>
     <?php endforeach ?>
-  </div>
-
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -58,6 +89,13 @@
       </div>
     </div>
   </div>
+  <?php else : ?>
+    <div style="display: flex; justify-items: center; align-items: center;">
+      <h2>Nenhum jogo cadastrado</h2>
+    </div>
+  <?php endif ?>
+  </div>
+
 </div>
 
 

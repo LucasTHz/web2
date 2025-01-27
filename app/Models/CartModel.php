@@ -4,23 +4,19 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class UserModel extends Model
+class CartModel extends Model
 {
-    protected $table            = 'users';
+    protected $table            = 'cart_items';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'name',
-        'email',
-        'password',
-        'role_id',
-        'balance',
-        'created_at',
-        'updated_at',
-        'birthday_at'
+        'id',
+        'user_id',
+        'game_id',
+        'quantity',
     ];
 
     protected bool $allowEmptyInserts = false;
@@ -52,4 +48,12 @@ class UserModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+
+    public function getDataCartItem(string $idUser)
+    {
+        $query = $this->select('cart_items.id, games.title, cart_items.quantity, games.price, cart_items.game_id')->join('games', 'games.id = cart_items.game_id')->where('cart_items.user_id', $idUser);
+
+        return $query->findAll();
+    }
 }

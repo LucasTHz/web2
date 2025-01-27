@@ -7,6 +7,8 @@
 </head>
 <body>
 <form action="/user/producer/store" method="post">
+  <?= view('layout/navbar') ?>
+
   <?= csrf_field() ?>
   <h1>Cadastro de produtores</h1>
 

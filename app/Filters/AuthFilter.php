@@ -2,12 +2,11 @@
 
 namespace App\Filters;
 
-use App\Enums\UserRolesEnum;
 use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class GamesProducerFilter implements FilterInterface
+class AuthFilter implements FilterInterface
 {
     /**
      * Do whatever processing this filter needs to do.
@@ -26,8 +25,10 @@ class GamesProducerFilter implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        if (session('role_id') != UserRolesEnum::ADMIN->value) {
-            return redirect()->to('/unauthorized');
+        $idUser = session('id_user');
+
+        if (!$idUser) {
+            return redirect()->to('/login');
         }
     }
 

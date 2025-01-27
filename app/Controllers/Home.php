@@ -10,6 +10,13 @@ class Home extends BaseController
     {
         $games = (new GameModel())->findAll();
 
-        return view('welcome_message', ['games' => $games]);
+        return view('dashboard', ['games' => $games]);
+    }
+
+    public function dashboard()
+    {
+        $games = (new GameModel())->findAll();
+
+        return view('dashboard', ['games' => $games]);
     }
 }

@@ -31,7 +31,7 @@ class AuthController extends BaseController
             return redirect()->back()->withInput()->with('errors', ['Senha ou email inválidos']);
         }
 
-        session()->set(['id_user' => $user['id'], 'role_id' => $user['role_id']]);
+        session()->set(['id_user' => $user['id'], 'role_id' => $user['role_id'], 'name' => $user['name']]);
 
         $games = (new GameModel())->findAll();
 

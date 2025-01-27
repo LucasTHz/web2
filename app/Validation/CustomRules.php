@@ -2,6 +2,7 @@
 
 namespace App\Validation;
 
+use App\Models\UserModel;
 use DateTime;
 
 class CustomRules
@@ -23,8 +24,6 @@ class CustomRules
         return $inputDate <= $now;
     }
 
-    //strongPassword
-
     public function strongPassword(string $password): bool
     {
         $uppercase    = preg_match('/[A-Z]/', $password);
@@ -33,5 +32,12 @@ class CustomRules
         $specialChars = preg_match('/[^\w]/', $password);
 
         return $uppercase && $lowercase && $number && $specialChars;
+    }
+
+    public function isUniqueEmail(string $email, string $id): bool
+    {
+        $user = (new UserModel())->where('email', $email)->first();
+
+        return !$user || $user['id'] == $id;
     }
 }

@@ -10,6 +10,7 @@ $routes->get('/login', 'AuthController::login');
 $routes->get('/logout', 'AuthController::logout');
 $routes->post('/auth/login', 'AuthController::auth');
 $routes->get('/unauthorized', 'AuthController::unauthorized');
+$routes->get('/dashboard', 'Home::dashboard');
 
 $routes->group('user', function ($routes) {
     $routes->group('producer', ['filter' => 'gamesproducer'], function ($routes) {
@@ -28,5 +29,14 @@ $routes->group('user', function ($routes) {
     $routes->group('client', function ($routes) {
         $routes->get('create', 'ClientController::create');
         $routes->post('store', 'ClientController::store');
+        $routes->get('edit/(:num)', 'ClientController::edit/$1');
+        $routes->post('update/(:num)', 'ClientController::update/$1');
     });
+});
+
+$routes->group('cart', ['filter' => 'auth'],function ($routes) {
+    $routes->post('add/(:num)', 'CartController::add/$1');
+    $routes->get('remove/(:num)', 'CartController::remove/$1');
+    $routes->get('/', 'CartController::show');
+    $routes->get('buy', 'CartController::buy');
 });

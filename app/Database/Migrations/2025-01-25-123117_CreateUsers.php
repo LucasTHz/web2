@@ -41,6 +41,10 @@ class CreateUsers extends Migration
                 'null'       => false,
                 'default'    => 0.00,
             ],
+            'birthday_at' => [
+                'type'       => 'DATE',
+                'null'       => false,
+            ],
             'created_at timestamp default current_timestamp',
             'updated_at timestamp default current_timestamp on update current_timestamp',
         ]);
