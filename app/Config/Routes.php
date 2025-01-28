@@ -11,6 +11,7 @@ $routes->post('/auth/login', 'AuthController::auth');
 $routes->get('/unauthorized', 'AuthController::unauthorized');
 $routes->get('/dashboard', 'Home::dashboard');
 $routes->get('/game/(:num)', 'GameController::show/$1');
+$routes->post('/game/review/(:num)', 'GameController::review/$1');
 
 $routes->group('admin', ['filter' => 'admin'], function ($routes) {
     $routes->get('users', 'AdminController::listUsers');

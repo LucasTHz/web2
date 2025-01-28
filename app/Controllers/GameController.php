@@ -106,4 +106,27 @@ class GameController extends BaseController
 
         return view('/games/show', ['game' => $game, 'reviews' => $reviewsWithUser]);
     }
+
+    public function review($idGame)
+    {
+        $data = $this->request->getPost();
+
+        $validated = $this->validate([
+            'review' => 'required',
+            'rating' => 'required|integer|greater_than_equal_to[1]|less_than_equal_to[5]',
+        ]);
+
+        if (!$validated) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
+        (new ReviewGameModel())->insert([
+            'game_id'   => $idGame,
+            'user_id'   => session('id_user'),
+            'review'    => $data['review'],
+            'rating'    => $data['rating'],
+        ]);
+
+        return redirect()->back()->with('success', 'Avaliação enviada com sucesso');
+    }
 }

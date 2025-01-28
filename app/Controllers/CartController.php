@@ -119,6 +119,7 @@ class CartController extends BaseController
             $purchase = [
                 'title'      => $title,
                 'quantity'   => $purchase['quantity'],
+                'game_id'    => $purchase['game_id'],
                 'total'      => $purchase['total'],
                 'created_at' => (new DateTime($purchase['created_at']))->format('d/m/Y H:i:s'),
             ];
