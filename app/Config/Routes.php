@@ -5,12 +5,12 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-$routes->get('/', 'Home::index');
 $routes->get('/login', 'AuthController::login');
 $routes->get('/logout', 'AuthController::logout');
 $routes->post('/auth/login', 'AuthController::auth');
 $routes->get('/unauthorized', 'AuthController::unauthorized');
 $routes->get('/dashboard', 'Home::dashboard');
+$routes->get('/game/(:num)', 'GameController::show/$1');
 
 $routes->group('admin', ['filter' => 'admin'], function ($routes) {
     $routes->get('users', 'AdminController::listUsers');

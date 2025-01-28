@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\GameModel;
+use App\Models\ReviewGameModel;
+use App\Models\UserModel;
 
 class GameController extends BaseController
 {
@@ -88,5 +90,20 @@ class GameController extends BaseController
         (new GameModel())->delete($idGame);
 
         return redirect()->back()->with('success', 'Jogo deletado com sucesso');
+    }
+
+    public function show(string $idGame)
+    {
+        $game = (new GameModel())->find($idGame);
+        $reviews = (new ReviewGameModel())->where('game_id', $idGame)->findAll();
+
+        $reviewsWithUser = array_map(function ($review) {
+            $review['user_name'] = (new UserModel())->find($review['user_id'])['name'];
+            return $review;
+        }, $reviews);
+
+        $game['path_img'] = '../uploads' . DIRECTORY_SEPARATOR . $game['path_img'];
+
+        return view('/games/show', ['game' => $game, 'reviews' => $reviewsWithUser]);
     }
 }

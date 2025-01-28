@@ -11,7 +11,7 @@ class Home extends BaseController
         $games = (new GameModel())->findAll();
 
         array_walk($games, function (&$game) {
-            $game['path_img'] = 'uploads' . DIRECTORY_SEPARATOR . $game['path_img'];
+            $game['path_img'] = 'uploads' . DIRECTORY_SEPARATOR . ($game['path_img'] ?? '');
         });
 
         return view('dashboard', ['games' => $games]);
