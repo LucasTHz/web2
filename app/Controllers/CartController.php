@@ -3,8 +3,11 @@
 namespace App\Controllers;
 
 use App\Models\CartModel;
+use App\Models\DepositModel;
+use App\Models\GameModel;
 use App\Models\PurchasesModel;
 use App\Models\UserModel;
+use DateTime;
 
 class CartController extends BaseController
 {
@@ -24,6 +27,7 @@ class CartController extends BaseController
                         'quantity' => $quantity,
                     ]);
                     $gameExists = true;
+
                     break;
                 }
             }
@@ -45,7 +49,7 @@ class CartController extends BaseController
         $cart  = session('cart') ?? [];
         $total = 0;
         $games = [];
-        $cart = (new CartModel())->getDataCartItem(session('id_user'));
+        $cart  = (new CartModel())->getDataCartItem(session('id_user'));
 
         foreach ($cart as $item) {
             if ($item['id']) {
@@ -59,7 +63,6 @@ class CartController extends BaseController
                 $total += $item['price'] * $item['quantity'];
             }
         }
-
 
         return view('cart/show', ['cart' => $games, 'total' => number_format($total, 2, '.', '')]);
     }
@@ -75,8 +78,8 @@ class CartController extends BaseController
     {
         $userModel = new UserModel();
         $cartModel = new CartModel();
-        $cart = $cartModel->getDataCartItem(session('id_user'));
-        $balance = $userModel->find(session('id_user'))['balance'];
+        $cart      = $cartModel->getDataCartItem(session('id_user'));
+        $balance   = $userModel->find(session('id_user'))['balance'];
 
         $totalPrice = 0;
         foreach ($cart as $item) {
@@ -100,10 +103,38 @@ class CartController extends BaseController
                 'user_id'  => session('id_user'),
                 'game_id'  => $item['game_id'],
                 'quantity' => $item['quantity'],
-                'price'    => $item['price'] * $item['quantity'],
+                'total'    => $item['price'] * $item['quantity'],
             ]);
         }
 
         return redirect()->to('/dashboard')->with('success', ['Compra realizada com sucesso']);
+    }
+
+    public function purchaseHistory()
+    {
+        $purchases = (new PurchasesModel())->where('user_id', session('id_user'))->findAll();
+        array_walk($purchases, function (&$purchase) {
+            $title = (new GameModel())->find($purchase['game_id'])['title'];
+
+            $purchase = [
+                'title'      => $title,
+                'quantity'   => $purchase['quantity'],
+                'total'      => $purchase['total'],
+                'created_at' => (new DateTime($purchase['created_at']))->format('d/m/Y H:i:s'),
+            ];
+        });
+
+        return view('cart/purchase_history', ['purchases' => $purchases]);
+    }
+
+    public function depositHistory()
+    {
+        $deposits = (new DepositModel())->where('user_id', session('id_user'))->findAll();
+
+        array_walk($deposits, function (&$deposit) {
+            $deposit['created_at'] = (new DateTime($deposit['created_at']))->format('d/m/Y H:i:s');
+        });
+
+        return view('cart/deposit_history', ['deposits' => $deposits]);
     }
 }

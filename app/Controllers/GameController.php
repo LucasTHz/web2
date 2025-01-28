@@ -19,7 +19,7 @@ class GameController extends BaseController
     public function store()
     {
         $data = $this->request->getPost();
-        $img = $this->request->getFile('img');
+        $img  = $this->request->getFile('img');
 
         $validated = $this->validate([
             'title'       => 'required',
@@ -55,7 +55,7 @@ class GameController extends BaseController
     public function update(string $idGame)
     {
         $data = $this->request->getPost();
-        $img = $this->request->getFile('img');
+        $img  = $this->request->getFile('img');
 
         $validated = $this->validate([
             'title'       => 'required',

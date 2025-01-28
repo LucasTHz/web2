@@ -52,5 +52,9 @@
       <input type="submit" value="Atualizar Saldo">
     </div>
   </form>
+
+  <h2>Histórico</h2>
+  <a href="/cart/purchase_history">Ver Histórico de Compras</a><br>
+  <a href="/cart/deposit_history">Ver Histórico de Depósitos</a>
 </body>
 </html>

@@ -50,7 +50,6 @@ class CartModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-
     public function getDataCartItem(string $idUser)
     {
         $query = $this->select('cart_items.id, games.title, cart_items.quantity, games.price, cart_items.game_id')
