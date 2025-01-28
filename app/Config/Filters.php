@@ -2,6 +2,7 @@
 
 namespace Config;
 
+use App\Filters\AdminFilter;
 use App\Filters\AuthFilter;
 use App\Filters\GamesProducerFilter;
 use CodeIgniter\Config\Filters as BaseFilters;
@@ -38,6 +39,7 @@ class Filters extends BaseFilters
         'performance'   => PerformanceMetrics::class,
         'gamesproducer' => GamesProducerFilter::class,
         'auth'          => AuthFilter::class,
+        'admin'         => AdminFilter::class,
     ];
 
     /**

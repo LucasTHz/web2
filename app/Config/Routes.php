@@ -12,6 +12,11 @@ $routes->post('/auth/login', 'AuthController::auth');
 $routes->get('/unauthorized', 'AuthController::unauthorized');
 $routes->get('/dashboard', 'Home::dashboard');
 
+$routes->group('admin', ['filter' => 'admin'], function ($routes) {
+    $routes->get('users', 'AdminController::listUsers');
+    $routes->post('updateUserRole/(:num)', 'AdminController::updateUserRole/$1');
+});
+
 $routes->group('user', function ($routes) {
     $routes->group('producer', ['filter' => 'gamesproducer'], function ($routes) {
         $routes->get('create', 'ProducerController::create');
@@ -40,4 +45,6 @@ $routes->group('cart', ['filter' => 'auth'],function ($routes) {
     $routes->get('remove/(:num)', 'CartController::remove/$1');
     $routes->get('/', 'CartController::show');
     $routes->post('buy', 'CartController::buy');
+    $routes->get('purchase_history', 'CartController::purchaseHistory');
+    $routes->get('deposit_history', 'CartController::depositHistory');
 });

@@ -41,6 +41,7 @@
         <?php endif ?>
         <?php if (session('role_id') == '1'): ?>
           <a class="nav-link" href="/user/producer/create">Cadastro Produtor</a>
+          <a class="nav-link" href="/admin/users">Gerenciar Usuários</a>
         <?php endif ?>
         <?php if (session('id_user')) : ?>
         <a class="nav-link active" aria-current="page" href="/dashboard">Home</a>
