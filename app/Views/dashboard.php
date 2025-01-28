@@ -42,11 +42,12 @@
   <?php if (!empty($games)): ?>
     <?php foreach ($games as $game): ?>
       <div class="card">
-        <h2><?= esc($game['title']) ?></h2>
+        <h2><a href="/game/<?= $game['id']?>"> <?= esc($game['title']) ?></a></h2>
         <p><?= esc($game['description']) ?></p>
         <p>Preço: <?= esc($game['price']) ?></p>
         <?php if (!empty($game['path_img'])): ?>
-          <img src="<?= base_url('/public/uploads/' . esc($game['path_img'])) ?>" alt="<?= esc($game['title']) ?>" style="width: 100%; height: auto;">
+          <?php echo $game['title'] ?>
+          <img src="<?=esc($game['path_img']) ?>" alt="<?= esc($game['title']) ?>" style="width: 100%; height: auto;">
         <?php endif; ?>
         <?php if (session('role_id') == '3'): ?>
           <button  type="button" class="btn btn-primary" onclick="location.href='/user/producer/game/edit/<?= $game['id'] ?>'">Editar</button>

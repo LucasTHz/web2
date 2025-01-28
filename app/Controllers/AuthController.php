@@ -35,7 +35,7 @@ class AuthController extends BaseController
 
         $games = (new GameModel())->findAll();
 
-        return view('dashboard', ['games' => $games]);
+        return \redirect()->to('/dashboard')->with('games', $games);
     }
 
     public function logout()
