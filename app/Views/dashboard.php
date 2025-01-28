@@ -31,7 +31,9 @@
   <?php if (session()->has('success')): ?>
     <div>
     <?php foreach (session('success') as $succes): ?>
-            <li style="color: green;"><?= esc($succes) ?></li>
+      <div class="alert alert-warning" role="alert">
+        <?= esc($succes) ?>
+</div>
           <?php endforeach ?>
     </div>
 
@@ -43,6 +45,9 @@
         <h2><?= esc($game['title']) ?></h2>
         <p><?= esc($game['description']) ?></p>
         <p>Preço: <?= esc($game['price']) ?></p>
+        <?php if (!empty($game['path_img'])): ?>
+          <img src="<?= base_url('/public/uploads/' . esc($game['path_img'])) ?>" alt="<?= esc($game['title']) ?>" style="width: 100%; height: auto;">
+        <?php endif; ?>
         <?php if (session('role_id') == '3'): ?>
           <button  type="button" class="btn btn-primary" onclick="location.href='/user/producer/game/edit/<?= $game['id'] ?>'">Editar</button>
           <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" >Deletar</button>

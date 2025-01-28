@@ -39,5 +39,5 @@ $routes->group('cart', ['filter' => 'auth'],function ($routes) {
     $routes->post('add/(:num)', 'CartController::add/$1');
     $routes->get('remove/(:num)', 'CartController::remove/$1');
     $routes->get('/', 'CartController::show');
-    $routes->get('buy', 'CartController::buy');
+    $routes->post('buy', 'CartController::buy');
 });

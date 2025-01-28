@@ -7,7 +7,26 @@
 </head>
 <body>
   <?= view('layout/navbar') ?>
+  <?php if (session()->has('errors')): ?>
+    <div>
+      <?php foreach (session('errors') as $message): ?>
+        <div class="alert alert-warning" role="alert">
+        <?= esc($message) ?>
+</div>
+      <?php endforeach ?>
+    </div>
+  <?php endif ?>
   <h1>Meu carrinho</h1>
+
+  <?php if (session()->has('success')): ?>
+    <div>
+      <?php foreach (session('success') as $message): ?>
+        <p><?= esc($message) ?></p>
+      <?php endforeach ?>
+    </div>
+  <?php endif ?>
+
+
   <table class="table">
     <thead>
       <tr>

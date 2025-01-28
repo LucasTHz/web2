@@ -24,6 +24,16 @@ class CreatePurchases extends Migration
                 'unsigned' => true,
                 'null'     => false,
             ],
+            'total' => [
+                'type'     => 'DECIMAL',
+                'constraint' => '10,2',
+                'null'     => false,
+            ],
+            'quantity' => [
+                'type'     => 'INT',
+                'unsigned' => true,
+                'null'     => false,
+            ],
             'created_at timestamp default current_timestamp',
             'updated_at timestamp default current_timestamp on update current_timestamp',
         ]);

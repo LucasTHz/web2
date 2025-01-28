@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\CartModel;
+use App\Models\PurchasesModel;
+use App\Models\UserModel;
 
 class CartController extends BaseController
 {
@@ -67,5 +69,41 @@ class CartController extends BaseController
         (new CartModel())->delete($id);
 
         return redirect()->back()->with('success', ['Jogo removido do carrinho']);
+    }
+
+    public function buy()
+    {
+        $userModel = new UserModel();
+        $cartModel = new CartModel();
+        $cart = $cartModel->getDataCartItem(session('id_user'));
+        $balance = $userModel->find(session('id_user'))['balance'];
+
+        $totalPrice = 0;
+        foreach ($cart as $item) {
+            $totalPrice += $item['price'] * $item['quantity'];
+        }
+
+        if ($balance < $totalPrice) {
+            return redirect()->back()->with('errors', ['Saldo insuficiente']);
+        }
+
+        $userModel->update(session('id_user'), [
+            'balance' => $balance - $totalPrice,
+        ]);
+
+        foreach ($cart as $item) {
+            $cartModel->update($item['id'], [
+                'purchase_completed' => 1,
+            ]);
+
+            (new PurchasesModel())->insert([
+                'user_id'  => session('id_user'),
+                'game_id'  => $item['game_id'],
+                'quantity' => $item['quantity'],
+                'price'    => $item['price'] * $item['quantity'],
+            ]);
+        }
+
+        return redirect()->to('/dashboard')->with('success', ['Compra realizada com sucesso']);
     }
 }
