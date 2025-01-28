@@ -27,10 +27,6 @@
       </div>
     <?php endif ?>
 
-    <div style="display: flex; justify-content: space-between;">
-      <h2>Saldo: R$ <?= $user['balance'] ?></h2>
-    </div>
-
     <div>
       <label for="name">Nome:</label>
       <input type="text" id="name" name="name" required value="<?= $user['name'] ?>" ><br><br>
@@ -41,12 +37,20 @@
       <label for="date">Data de Nascimento:</label>
       <input type="date" id="date" name="date" required  lang="pt-BR" value="<?= $user['birthday_at'] ?>"><br><br>
 
-      <label for="balance">Saldo:</label>
-      <input type="number" id="balance" name="balance" min="0" step="0.01" required  value="<?= $user['balance'] ?>"><br><br>
-
       <input type="submit" value="Atualizar">
     </div>
+  </form>
 
+  <form action="/user/client/update_balance/<?= session('id_user') ?>" method="post">
+    <?= csrf_field() ?>
+    <div style="display: flex; justify-content: space-between;">
+      <h2>Saldo: R$ <?= $user['balance'] ?></h2>
+    </div>
+    <div>
+      <label for="balance">Saldo:</label>
+      <input type="number" id="balance" name="balance" min="0" step="0.01" required value="<?= $user['balance'] ?>"><br><br>
+      <input type="submit" value="Atualizar Saldo">
+    </div>
   </form>
 </body>
 </html>

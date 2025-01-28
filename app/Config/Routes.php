@@ -31,6 +31,7 @@ $routes->group('user', function ($routes) {
         $routes->post('store', 'ClientController::store');
         $routes->get('edit/(:num)', 'ClientController::edit/$1');
         $routes->post('update/(:num)', 'ClientController::update/$1');
+        $routes->post('update_balance/(:num)', 'ClientController::updateBalance/$1');
     });
 });
 

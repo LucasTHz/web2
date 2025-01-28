@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Enums\UserRolesEnum;
+use App\Models\DepositModel;
 use App\Models\UserModel;
 use App\Validation\StoreUserValidation;
 use App\Validation\UpdateUserValidation;
@@ -68,5 +69,23 @@ class ClientController extends BaseController
         ]);
 
         return \redirect()->back()->with('success', 'Usuário atualizado com sucesso');
+    }
+
+    public function updateBalance(string $id)
+    {
+        $data = $this->request->getPost();
+
+        (new DepositModel())->insert([
+            'user_id' => $id,
+            'amount'  => $data['balance'],
+        ]);
+
+        $balanceCurrent = (new UserModel())->find($id)['balance'] ?? 0;
+
+        (new UserModel())->update($id, [
+            'balance' => $data['balance'] + $balanceCurrent,
+        ]);
+
+        return \redirect()->back()->with('success', 'Saldo atualizado com sucesso');
     }
 }
