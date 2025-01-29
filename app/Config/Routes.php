@@ -5,6 +5,9 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
+$routes->get('/', function() {
+    return redirect()->to('/dashboard');
+});
 $routes->get('/login', 'AuthController::login');
 $routes->get('/logout', 'AuthController::logout');
 $routes->post('/auth/login', 'AuthController::auth');
@@ -16,13 +19,13 @@ $routes->post('/game/review/(:num)', 'GameController::review/$1');
 $routes->group('admin', ['filter' => 'admin'], function ($routes) {
     $routes->get('users', 'AdminController::listUsers');
     $routes->post('updateUserRole/(:num)', 'AdminController::updateUserRole/$1');
+    $routes->get('producer/create', 'ProducerController::create');
+    $routes->post('producer/store', 'ProducerController::store');
+
 });
 
 $routes->group('user', function ($routes) {
     $routes->group('producer', ['filter' => 'gamesproducer'], function ($routes) {
-        $routes->get('create', 'ProducerController::create');
-        $routes->post('store', 'ProducerController::store');
-
         $routes->group('game', function ($routes) {
             $routes->get('create', 'GameController::create');
             $routes->post('store', 'GameController::store');
@@ -30,6 +33,8 @@ $routes->group('user', function ($routes) {
             $routes->post('update/(:num)', 'GameController::update/$1');
             $routes->get('delete/(:num)', 'GameController::delete/$1');
         });
+        $routes->get('edit/(:num)', 'ClientController::edit/$1');
+        $routes->post('update/(:num)', 'ClientController::update/$1');
     });
 
     $routes->group('client', function ($routes) {

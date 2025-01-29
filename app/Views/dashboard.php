@@ -31,7 +31,7 @@
   <?php if (session()->has('success')): ?>
     <div>
     <?php foreach (session('success') as $succes): ?>
-      <div class="alert alert-warning" role="alert">
+      <div class="alert alert-success" role="alert">
         <?= esc($succes) ?>
 </div>
           <?php endforeach ?>

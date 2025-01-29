@@ -29,9 +29,10 @@ class ProducerController extends BaseController
         (new UserModel())->insert([
             ...$data,
             'role_id'  => UserRolesEnum::PRODUCER->value,
+            'birthday_at' => $data['date'],
             "password" => \password_hash($data['password'], PASSWORD_DEFAULT),
         ]);
 
-        return \redirect()->to('/login');
+        return \redirect()->back()->with('success', ['Produtor cadastrado com sucesso']);
     }
 }

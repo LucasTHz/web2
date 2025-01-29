@@ -6,7 +6,7 @@
   <title>Cadastro de cliente</title>
 </head>
 <body>
-<form action="/user/producer/store" method="post">
+<form action="/admin/producer/store" method="post">
   <?= view('layout/navbar') ?>
 
   <?= csrf_field() ?>
@@ -19,6 +19,16 @@
           <li style="color: red;"><?= esc($error) ?></li>
         <?php endforeach ?>
       </ul>
+    </div>
+  <?php endif ?>
+
+  <?php if (session()->has('success')): ?>
+    <div>
+      <?php foreach (session('success') as $message): ?>
+        <div class="alert alert-success" role="alert">
+        <?= esc($message) ?>
+        </div>
+      <?php endforeach ?>
     </div>
   <?php endif ?>
 

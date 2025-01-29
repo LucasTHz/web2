@@ -35,7 +35,7 @@ class GameController extends BaseController
         }
 
         if ($img->isValid() && !$img->hasMoved()) {
-            $img->move(WRITEPATH . 'uploads');
+            $img->move(FCPATH . 'uploads');
             $data['path_img'] = $img->getName();
         }
 
@@ -89,7 +89,7 @@ class GameController extends BaseController
     {
         (new GameModel())->delete($idGame);
 
-        return redirect()->back()->with('success', 'Jogo deletado com sucesso');
+        return redirect()->back()->with('success', ['Jogo deletado com sucesso']);
     }
 
     public function show(string $idGame)

@@ -40,7 +40,7 @@
           <a class="nav-link" href="/cart">Carrinho</a>
         <?php endif ?>
         <?php if (session('role_id') == '1'): ?>
-          <a class="nav-link" href="/user/producer/create">Cadastro Produtor</a>
+          <a class="nav-link" href="/admin/producer/create">Cadastro Produtor</a>
           <a class="nav-link" href="/admin/users">Gerenciar Usuários</a>
         <?php endif ?>
         <?php if (session('id_user')) : ?>
@@ -53,7 +53,7 @@
         <?php endif ?>
 
         <?php if (session('role_id') == '3'): ?>
-        <a class="nav-link" href="/user/producer/edit">Perfil</a>
+        <a class="nav-link" href="/user/producer/edit/<?= session('id_user')?> ">Perfil</a>
             <a class="nav-link" href="/user/producer/game/create">Cadastro de jogo</a>
             <a class="nav-link" href="/user/producer/game/create">Jogos</a>
         <?php endif ?>
