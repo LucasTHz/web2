@@ -33,6 +33,11 @@ class CreateGames extends Migration
                 'unsigned' => true,
                 'null'     => true,
             ],
+            'path_img' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 255,
+                'null'       => false,
+            ],
             'created_at timestamp default current_timestamp',
             'updated_at timestamp default current_timestamp on update current_timestamp',
         ]);

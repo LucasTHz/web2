@@ -39,6 +39,11 @@ class CreateCartItems extends Migration
                 'null'    => false,
                 'default' => 1,
             ],
+            'purchase_completed' => [
+                'type'    => 'BOOLEAN',
+                'null'    => false,
+                'default' => false,
+            ],
             'created_at timestamp default current_timestamp',
             'updated_at timestamp default current_timestamp on update current_timestamp',
         ]);
