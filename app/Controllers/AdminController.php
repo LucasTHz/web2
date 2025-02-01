@@ -2,28 +2,32 @@
 
 namespace App\Controllers;
 
-use App\Models\UserModel;
-use App\Enums\UserRolesEnum;
+use App\Services\AdminService;
+use Throwable;
 
 class AdminController extends BaseController
 {
+    public function __construct(private AdminService $service)
+    {
+    }
+
     public function listUsers()
     {
-        $users = (new UserModel())->findAll();
+        $users = $this->service->list();
         return view('admin/user_list', ['users' => $users]);
     }
 
     public function updateUserRole($id)
     {
-        $data = $this->request->getPost();
-        $role = $data['role'];
+        try {
+            $data = $this->request->getPost();
+            $role = $data['role'];
 
-        if (!in_array($role, [UserRolesEnum::CLIENT->value, UserRolesEnum::PRODUCER->value])) {
-            return redirect()->back()->with('errors', ['Invalid role']);
+            $this->service->updateUserRole($id, $role);
+
+            return redirect()->back()->with('success', 'Perfil de acesso atualizado com sucesso');
+        } catch (Throwable $e) {
+            return redirect()->back()->with('error', $e->getMessage());
         }
-
-        (new UserModel())->update($id, ['role_id' => $role]);
-
-        return redirect()->back()->with('success', 'User role updated successfully');
     }
 }
